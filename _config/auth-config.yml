@@ -1,0 +1,30 @@
+---
+Name: leochenftw\config\auth-config
+---
+Authenticators :
+  Facebook :
+    #app_id : 666
+    #app_secret : YOUR_APP_SECRET
+    oauth : 'https://www.facebook.com/v3.2/dialog/oauth'
+    access : 'https://graph.facebook.com/v3.2/oauth/'
+    graph_api : 'https://graph.facebook.com/'
+    scopes : 'email'
+    fields : 'id,first_name,last_name,picture.width(512).height(512),short_name,email'
+  Linkedin :
+    # client_id : YOUR_CLIENT_ID
+    # client_secret : YOUR_CLIENT_SECRET
+    endpoint : 'https://www.linkedin.com/oauth/v2/'
+    oauth : 'authorization'
+    access : 'accessToken'
+    profile_api : 'https://api.linkedin.com/v1/people/~:'
+    scopes : 'r_basicprofile r_emailaddress'
+    fields : '(id,first-name,last-name,maiden-name,formatted-name,headline,location,industry,num-connections,summary,positions,picture-url,picture-urls::(original),public-profile-url,email-address)'
+  Wechat :
+    # appid : YOUR_APP_ID
+    # secret : YOUR_SECRET
+    oauth : 'https://open.weixin.qq.com/connect/qrconnect'
+    access_endpoint : 'https://api.weixin.qq.com/sns/oauth2/'
+    access : 'access_token'
+    profile_endpoint : 'https://api.weixin.qq.com/sns/'
+    profile_api : 'userinfo'
+    scopes : 'snsapi_login'

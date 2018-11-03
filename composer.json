@@ -1,0 +1,19 @@
+{
+    "name": "leochenftw/authenticators",
+    "description": "Leo's 3rd-party authenticators",
+    "type": "silverstripe-vendormodule",
+    "homepage": "https://github.com/leochenftw/authenticators",
+    "license": "MIT",
+    "keywords": ["silverstripe 3rd-party login"],
+    "authors": [
+        {
+            "name": "Leo Chen",
+            "homepage": "https://www.leochen.co.nz"
+        }
+    ],
+    "require": {
+        "silverstripe/framework": "^4.0",
+        "guzzlehttp/guzzle": "^6.3",
+        "salted-herring/salted-cropper": "dev-feature/ss4-upgrade"
+    }
+}

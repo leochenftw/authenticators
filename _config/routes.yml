@@ -1,0 +1,11 @@
+---
+Name: leochenftw\config\auth-routes
+After:
+  - '#rootroutes'
+  - '#coreroutes'
+---
+SilverStripe\Control\Director:
+  rules:
+    auth/we : Leochenftw\Controller\WeAuthController
+    auth/in : Leochenftw\Controller\LinkedinAuthController
+    auth/fb : Leochenftw\Controller\FbAuthController

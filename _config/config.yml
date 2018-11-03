@@ -1,0 +1,7 @@
+---
+Name: leochenftw\config\authenicators-config
+---
+
+SilverStripe\Security\Member:
+  extensions:
+    - Leochenftw\Extension\MemberExtension
