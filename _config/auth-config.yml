@@ -28,3 +28,12 @@ Authenticators :
     profile_endpoint : 'https://api.weixin.qq.com/sns/'
     profile_api : 'userinfo'
     scopes : 'snsapi_login'
+  Github :
+    # client_id : YOUR_CLIENT_ID
+    # client_secret : YOUR_CLIENT_SECRET
+    endpoint : 'https://github.com/login/oauth/'
+    oauth : 'authorize'
+    access : 'access_token'
+    scopes : 'user'
+    profile_endpoint : 'https://api.github.com/'
+    profile_api : 'user'

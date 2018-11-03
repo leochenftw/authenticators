@@ -9,3 +9,4 @@ SilverStripe\Control\Director:
     auth/we : Leochenftw\Controller\WeAuthController
     auth/in : Leochenftw\Controller\LinkedinAuthController
     auth/fb : Leochenftw\Controller\FbAuthController
+    auth/github : Leochenftw\Controller\GithubAuthController

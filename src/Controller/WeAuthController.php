@@ -50,6 +50,7 @@ class WeAuthController extends PageController
 
                             if (empty($member)) {
                                 if ($data = $this->get_profile_details($access_token, $openid)) {
+                                    $data   =   json_decode($data);
                                     $member =   $profile->create_member($data);
                                     Injector::inst()->get(IdentityStore::class)->logIn($member);
                                     return $this->redirect('/');
@@ -61,7 +62,9 @@ class WeAuthController extends PageController
                         $profile->openid        =   $response->openid;
                         $profile->unionid       =   $response->unionid;
 
-                        if ($data = $this->get_profile_details($access_token, $openid)) {
+                        if ($raw_data = $this->get_profile_details($access_token, $openid)) {
+                            $data               =   json_decode($raw_data);
+                            $profile->raw_data  =   $raw_data;
                             $profile->nickname  =   $data->nickname;
                             $member =   $profile->create_member($data);
                             Injector::inst()->get(IdentityStore::class)->logIn($member);
@@ -112,7 +115,7 @@ class WeAuthController extends PageController
                 ]
             ]);
 
-            return json_decode($response->getBody()->getContents());
+            return $response->getBody()->getContents();
 
         } catch (ClientException $e) {
             print $e;

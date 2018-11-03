@@ -45,7 +45,8 @@ class FbAuthController extends PageController
 
                     $client         =   new Client(['base_uri' => $graph_api]);
                     $response       =   $client->request('GET', 'me?fields=' . $fields . '&access_token=' . $access_token);
-                    $response       =   json_decode($response->getBody()->getContents());
+                    $raw_data       =   $response->getBody()->getContents();
+                    $response       =   json_decode($raw_data);
 
                     if ($profile = FacebookProfile::get()->filter(['fb_id' => $response->id])->first()) {
                         $member =   $profile->Member();
@@ -58,9 +59,10 @@ class FbAuthController extends PageController
                         return $this->redirect('/');
                     }
 
-                    $profile        =   FacebookProfile::create();
-                    $profile->fb_id =   $response->id;
-                    $member         =   $profile->create_member($response);
+                    $profile            =   FacebookProfile::create();
+                    $profile->fb_id     =   $response->id;
+                    $profile->raw_data  =   $raw_data;
+                    $member             =   $profile->create_member($response);
 
                     Injector::inst()->get(IdentityStore::class)->logIn($member);
                     return $this->redirect('/');

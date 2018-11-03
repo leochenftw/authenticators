@@ -2,6 +2,7 @@
 
 namespace Leochenftw\Extension;
 
+use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataExtension;
 use SaltedHerring\Salted\Cropper\SaltedCroppableImage;
@@ -14,6 +15,7 @@ use SilverStripe\AssetAdmin\Controller\AssetAdmin;
 use Leochenftw\Model\FacebookProfile;
 use Leochenftw\Model\LinkedinProfile;
 use Leochenftw\Model\WechatProfile;
+use Leochenftw\Model\GithubProfile;
 
 class MemberExtension extends DataExtension
 {
@@ -32,7 +34,8 @@ class MemberExtension extends DataExtension
     private static $belongs_to = [
         'FacebookProfile'   =>  FacebookProfile::class,
         'LinkedinProfile'   =>  LinkedinProfile::class,
-        'WechatProfile'     =>  WechatProfile::class
+        'WechatProfile'     =>  WechatProfile::class,
+        'GithubProfile'     =>  GithubProfile::class
     ];
 
     /**
@@ -43,9 +46,22 @@ class MemberExtension extends DataExtension
     {
         $owner = $this->owner;
 
-        $fields->addFieldToTab(
+        $fields->addFieldsToTab(
             'Root.Main',
-            CroppableImageField::create('PortraitID', 'Portrait')->setCropperRatio(1),
+            [
+                CroppableImageField::create('PortraitID', 'Portrait')->setCropperRatio(1),
+                TextField::create(
+                    'LoginWith',
+                    'Login With',
+                    rtrim(
+                        ($this->owner->FacebookProfile()->exists() ? 'Facebook, ' : '') .
+                        ($this->owner->LinkedinProfile()->exists() ? 'Linkedin, ' : '') .
+                        ($this->owner->WechatProfile()->exists() ? 'Wechat, ' : '') .
+                        ($this->owner->GithubProfile()->exists() ? 'Github, ' : ''),
+                        ', '
+                    )
+                )->performReadonlyTransformation()
+            ],
             'FirstName'
         );
 
@@ -90,6 +106,14 @@ class MemberExtension extends DataExtension
 
         if ($this->owner->LinkedinProfile()->exists()) {
             $this->owner->LinkedinProfile()->delete();
+        }
+
+        if ($this->owner->WechatProfile()->exists()) {
+            $this->owner->WechatProfile()->delete();
+        }
+
+        if ($this->owner->GithubProfile()->exists()) {
+            $this->owner->GithubProfile()->delete();
         }
     }
 }

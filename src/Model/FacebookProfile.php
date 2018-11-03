@@ -23,7 +23,8 @@ class FacebookProfile extends SocialProfile
      * @var array
      */
     private static $db = [
-        'fb_id' =>  'Varchar(32)'
+        'fb_id'     =>  'Varchar(32)',
+        'fb_url'    =>  'Varchar(256)'
     ];
 
     private static $indexes = [
@@ -42,10 +43,6 @@ class FacebookProfile extends SocialProfile
         $member->FirstName      =   $data->first_name;
         $member->Surname        =   $data->last_name;
         $member->Email          =   $data->email;
-
-        // if ($member->hasField('Nickname')) {
-        //     $member->Nickname   =   $data->short_name;
-        // }
 
         $member->create_portrait($data->picture->data->url, $data->id . '-portrait.jpg');
 

@@ -13,6 +13,13 @@ use SilverStripe\Security\Member;
 class SocialProfile extends DataObject
 {
     /**
+     * Database fields
+     * @var array
+     */
+    private static $db = [
+        'raw_data'  =>  'Text'
+    ];
+    /**
      * Defines the database table name
      * @var string
      */

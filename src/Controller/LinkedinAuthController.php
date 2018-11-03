@@ -55,8 +55,8 @@ class LinkedinAuthController extends PageController
                                                 ]
                                             );
 
-                        $response       =   json_decode($response->getBody()->getContents());
-
+                        $raw_data       =   $response->getBody()->getContents();
+                        $response       =   json_decode($raw_data);
 
                         if ($profile = LinkedinProfile::get()->filter(['LinkedinID' => $response->id])->first()) {
                             $member =   $profile->Member();
@@ -71,6 +71,7 @@ class LinkedinAuthController extends PageController
 
                         $profile                =   LinkedinProfile::create();
                         $profile->LinkedinID    =   $response->id;
+                        $profile->raw_data      =   $raw_data;
                         $member                 =   $profile->create_member($response);
 
                         Injector::inst()->get(IdentityStore::class)->logIn($member);
